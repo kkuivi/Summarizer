@@ -15,7 +15,7 @@ public class summarizer {
 	static final char[] BEGINNING_PUNCTUATIONS = {'(', '#', '\"'}; //list of punctuations that occur at the beginning of a word
 	static final char[] ENDING_PUNCTUATIONS = {'.', ',', ';' , ':' , '\"', ')', '?', '!', '-'}; //list of punctuatiions that occur at the end of a word
 	static final String ALTERVISTA_ENDPOINT = "http://thesaurus.altervista.org/thesaurus/v1"; //link to the online Altervista Thesaurus
-	static final String ALTERVISTA_KEY = "qN15E22FQq5EmSv1Wk8x"; //key to be used as a parameter when making request to Altervista
+	static final String ALTERVISTA_KEY = "KEY"; //key to be used as a parameter when making request to Altervista
 	static final String ALTERVISTA_LANGUAGE = "en_US"; //indicates to Altervista that synonyms should be return in English
 	static final String ALTERVISTA_OUTPUT = "json"; //indicates to Altervista that request should be returned in JSON
 	
