@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0038)http://thesaurus.altervista.org/testjs -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Javascript example</title>
+<meta name="description" content="This page describe how to use javascript to access thesaurus">
+<link rel="stylesheet" type="text/css" href="./altervista javascript_files/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css"></style><script src="./altervista javascript_files/service.php"></script></head>
+
+<body>
+<div class="backgrnd">
+<table border="0" cellspacing="0" cellpadding="0" class="backgrnd">
+<tbody><tr>
+<td><ul class="menu"><li><a title="Main page" href="http://thesaurus.altervista.org/">Thesaurus</a></li><li><a title="XML/JSON interface" href="http://thesaurus.altervista.org/service">XML and JSON</a></li><li><a title="Example with PHP" href="http://thesaurus.altervista.org/testphp">PHP</a></li><li><a title="Example with Java" href="http://thesaurus.altervista.org/testjava">Java</a></li><li id="active"><a title="Example with Javascript" href="http://thesaurus.altervista.org/testjs">Javascript</a></li><li><a title="Example using Yahoo Query Language" href="http://thesaurus.altervista.org/testyql">YQL</a></li><li><a title="Forum" href="http://thesaurus.altervista.org/forum">Forum</a></li><li><a title="Dashboard" href="http://thesaurus.altervista.org/mykey">My key</a></li><li id="active"><iframe src="./altervista javascript_files/like.html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowtransparency="true"></iframe></li></ul></td>
+</tr>
+<tr><td class="body"><br>
+<!-- begin content -->
+<div class="blu">Javascript</div>
+<br>The Javascript example requires support for JSON in browser, e.g. Firefox 3.5 can handle <a href="http://www.json.org/" target="_blank">JSON</a>.
+The example is quite simple, it invokes the thesaurus API with callback=process:
+<br><br>
+<div class="box">
+<code>
+<br>var s = document.createElement("script");
+<br>s.src = "http://thesaurus.altervista.org/service.php?word=peace&amp;language=en_US&amp;output=json&amp;key=<i>test_only</i>&amp;callback=process"; // NOTE: replace <i>test_only</i> with your own <a href="http://thesaurus.altervista.org/mykey">KEY</a>
+<br>document.getElementsByTagName("head")[0].appendChild(s);
+<br>
+<br>function process(result) {
+<br>&nbsp;&nbsp;output = "";
+<br>&nbsp;&nbsp;for (key in result.response) {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;list = result.response[key].list;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;output += list.synonyms+"&lt;br&gt;";
+<br>&nbsp;&nbsp;}
+<br>&nbsp;&nbsp;if (output)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("synonyms").innerHTML = output; 
+<br>}
+</code>
+</div>
+<br><br>Here is the live demo, that you will be able to see only on JSON capable browsers:
+<br><br>Synonyms of <span id="word">peace</span>:<br>
+<div id="synonyms">order|war (antonym)<br>harmony|concord|concordance<br>peacefulness|peace of mind|repose|serenity|heartsease|ataraxis|tranquillity|tranquility|quietness|quietude<br>public security|security<br>peace treaty|pacification|treaty|pact|accord<br></div>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof JSON == 'undefined')
+	document.getElementById("synonyms").innerHTML = "<b>Error: JSON is not supported by your Web Browser. Please use Chrome or Firefox.</b>";
+else {
+	var s = document.createElement("script");
+	s.src = "http://thesaurus.altervista.org/service.php?word=peace&language=en_US&output=json&key=test_only&callback=process"; // NOTE: YOU MUST CHANGE THE KEY test_only WITH YOUR OWN KEY
+	document.getElementsByTagName("head")[0].appendChild(s);
+}
+
+function process(result) {
+	output = "";
+	for (key in result.response) {
+		list = result.response[key].list;
+		output += list.synonyms+"<br>";
+	}
+	if (output)
+		document.getElementById("synonyms").innerHTML = output; 
+}
+//]]>
+</script><noscript>No JavaScript? No Party!</noscript>
+<!-- end content -->
+</td></tr>
+</tbody></table>
+
+</div>
+<a href="http://thesaurus.altervista.org/dictionary" title="Dictionary overview">Dictionary</a> | <a href="http://thesaurus.altervista.org/index.php?page=terms-en" title="Thesaurus terms and conditions">Terms and conditions</a> | <a href="http://thesaurus.altervista.org/index.php?page=policy-en" title="Thesaurus privacy policy">Privacy policy</a> <br><script type="text/javascript">
+/* <![CDATA[ */
+document.write('<s'+'cript type="text/javascript" src="http://ad.altervista.org/js.ad/size=728X90/r='+new Date().getTime()+'"><\/s'+'cript>');
+/* ]]> */
+</script><script type="text/javascript" src="./altervista javascript_files/"></script> <script type="text/javascript" src="./altervista javascript_files/cookiesc.js" defer=""></script>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function(event) {
+    window.cookieChoices && cookieChoices.showCookieConsentBar && cookieChoices.showCookieConsentBar('This web site uses cookies only for session management and does not collect personal information. The pages rendered by this web site contains elements generated by Facebook and Google. By using this site, you agree to accept cookies.', 'X');
+  });
+</script>
+
+</body></html>

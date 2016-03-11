@@ -1,0 +1,1 @@
+My name is Elikem. I am testing the summarizer- program that summarizes a piece of text. This program is like a sort of "Hello World" thingy. Let's see it works!

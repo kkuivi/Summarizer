@@ -1,0 +1,24 @@
+BODY {background:url('images/background.png') repeat-x;background-color:#EFF4F3;text-align: center; /* to correct the centering IE bug*/}
+DIV.backgrnd {background-color:#ECECE0;margin-left:auto;margin-right:auto; border: solid #009999;}
+TABLE.backgrnd {background-color:#ECECE0;}
+TD,TH {font-family:verdana, arial, helvetica, sans-serif;font-size:12px;vertical-align:top;}
+td.body {padding : 8px;}
+table.def { background-color:#FFFFFF; border-width:3px; border-style:solid; border-color:#006699; }
+table.def td    { background-color: #DEE3E7; }
+table.def th    { background-color: #C8D1D7; }
+A:link		{ color: #005a9c; font-weight:bold; text-decoration: none }
+A:visited	{ color: #005a9c; font-weight:bold; text-decoration: none }
+A:hover		{ color: #005a9c; font-weight:bold; text-decoration: underline }
+A:active	{ color: #005a9c; font-weight:bold; text-decoration: underline }
+ul.menu{ font-size:14px; margin: 0; padding: 0; cursor: default; list-style-type: none; height: 18px; display: table; width: 100%; table-layout: fixed; }
+ul.menu li {  border-right:thin solid #ECECE0; color: #ECECE0; background-color:#009999; display: table-cell; position: relative; padding: 2px 6px; text-align:center; float: left} /* float:left is a workaround for IE*/
+li#active A { color: #009999; }
+li#active { background-color:#ECECE0; }
+ul.menu A:link {color: #ECECE0; }
+ul.menu A:visited {color: #ECECE0; }
+ul.menu A:hover { color: #ECECE0; text-decoration: none; background-color:#00CCCC;}
+.blu	{ font-weight:bold; padding : 3px; background-color:#009999; color: #FFFFDD}
+.tabs {padding:16px 0 0 20px;background:url('images/titleback.gif') repeat-x top;height:29px;background-color:#F0F0F0;}
+img	{  border-style: none; } /* remove border around images */
+.box { background-color:#F2F2F2;border:1px solid #aaa;padding:5px; }
+.cookiechoicesinfo{position:fixed;width:100%;background-color:#3C739A;margin:0;left:0;bottom:0;z-index:4000;text-align:center;color:#fff;padding:10px 0;font-family:Arial}.cookiechoicesinfo .cookiechoicestext{display:inline-block;vertical-align:middle;font-size:16px;margin:10px 20px;color:#ddd;text-align:left}.cookiechoicesinfo .cookiechoicesbutton:hover{color:#fff}.cookiechoicesinfo .cookiechoicesbutton{display:inline-block;vertical-align:middle;font-weight:700;color:#eee;padding:0 6px;text-decoration:none}

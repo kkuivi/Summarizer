@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0039)http://thesaurus.altervista.org/service -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>XML and JSON</title>
+<meta name="description" content="Details about thesaurus web service">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="./altervista json_files/main.css">
+<style type="text/css"></style></head>
+
+<body>
+<div class="backgrnd">
+<table border="0" cellspacing="0" cellpadding="0" class="backgrnd">
+<tbody><tr>
+<td><ul class="menu"><li><a title="Main page" href="http://thesaurus.altervista.org/">Thesaurus</a></li><li id="active"><a title="XML/JSON interface" href="http://thesaurus.altervista.org/service">XML and JSON</a></li><li><a title="Example with PHP" href="http://thesaurus.altervista.org/testphp">PHP</a></li><li><a title="Example with Java" href="http://thesaurus.altervista.org/testjava">Java</a></li><li><a title="Example with Javascript" href="http://thesaurus.altervista.org/testjs">Javascript</a></li><li><a title="Example using Yahoo Query Language" href="http://thesaurus.altervista.org/testyql">YQL</a></li><li><a title="Forum" href="http://thesaurus.altervista.org/forum">Forum</a></li><li><a title="Dashboard" href="http://thesaurus.altervista.org/mykey">My key</a></li><li id="active"><iframe src="./altervista json_files/like.html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowtransparency="true"></iframe></li></ul></td>
+</tr>
+<tr><td class="body"><br>
+<!-- begin content -->
+The Thesaurus service provides a simple RESTful API to get synonyms of a given word in the context of a specific language.
+An application can retrieve the synonyms by using a HTTP GET. The service script can return results either using <b>xml</b> or <b>json</b> format.
+<br><br><b>Request url</b>:
+<br>http://thesaurus.altervista.org/thesaurus/v1
+<br><br><div class="blu">Query Parameters</div>
+<br>The following parameters are supported by the thesaurus Web service:<br><br>
+<table class="def"><tbody><tr><th>parameter</th><th>default</th><th>description</th></tr>
+<tr><td>key</td><td>*</td><td>String that uniquely identifies your application. The key is assigned by subscribing <a href="http://thesaurus.altervista.org/mykey">here</a></td></tr>
+<tr><td>word</td><td>*</td><td>(urlencoded string)</td></tr>
+<tr><td>language</td><td>*</td><td>it_IT, fr_FR, de_DE, en_US, el_GR, es_ES, de_DE, no_NO, pt_PT, ro_RO, ru_RU, sk_SK</td></tr>
+<tr><td>output</td><td>xml</td><td>xml or json</td></tr>
+<tr><td>callback</td><td></td><td>javascript callback function (requires output=json)</td></tr>
+</tbody></table>
+*: mandatory parameter
+<br><br>Query parameters are preceded by a question mark ("?") and separated by ampersands ("&amp;") and consist of the parameter name, an equals sign ("="), and a value.
+<br><br><div class="blu">Response content</div>
+<br>The thesaurus Web service returns a sequence of elements <u><i>list</i></u>.
+Each <i>list</i> element contains a pair of elements: <u><i>category</i></u> and <u><i>synonyms</i></u>.
+The element <i>synonyms</i> contains a list of synonyms separated by the character |.
+<br>The detailed schema can be downloaded <a href="http://thesaurus.altervista.org/synonymResponse.xsd" target="_blank">synonymResponse.xsd</a>.
+<p>The query <i>word=peace</i> <u>and</u> <i>language=en_US</i> will return the following result:
+</p><p><i>xml output</i> (test now: <a href="http://thesaurus.altervista.org/thesaurus/v1?word=peace&amp;language=en_US&amp;key=test_only&amp;output=xml" target="_blank">en_US</a>, <a href="http://thesaurus.altervista.org/thesaurus/v1?word=pace&amp;language=it_IT&amp;key=test_only&amp;output=xml" target="_blank">it_IT</a>, <a href="http://thesaurus.altervista.org/thesaurus/v1?word=paix&amp;language=fr_FR&amp;key=test_only&amp;output=xml" target="_blank">fr_FR</a>, <a href="http://thesaurus.altervista.org/thesaurus/v1?word=paz&amp;language=es_ES&amp;key=test_only&amp;output=xml" target="_blank">es_ES</a>)
+<br></p><blockquote>&lt;response&gt;
+<br>&lt;list&gt;&lt;category&gt;(noun)&lt;/category&gt;&lt;synonyms&gt;order|war (antonym)&lt;/synonyms&gt;&lt;/list&gt;
+<br>&lt;list&gt;&lt;category&gt;(noun)&lt;/category&gt;&lt;synonyms&gt;harmony|concord|concordance&lt;/synonyms&gt;&lt;/list&gt;
+<br>&lt;list&gt;&lt;category&gt;(noun)&lt;/category&gt;&lt;synonyms&gt;public security|security&lt;/synonyms&gt;&lt;/list&gt;
+<br>&lt;list&gt;&lt;category&gt;(noun)&lt;/category&gt;&lt;synonyms&gt;peace treaty|pacification|treaty|pact|accord&lt;/synonyms&gt;&lt;/list&gt;
+<br>&lt;/response&gt;
+</blockquote>
+<p><i>json output</i> (<a href="http://thesaurus.altervista.org/thesaurus/v1?word=peace&amp;language=en_US&amp;key=test_only&amp;output=json" target="_blank">test me!</a>)
+<br></p><blockquote>{"response":[{"list":{"category":"(noun)","synonyms":"order|war (antonym)"}},
+<br>{"list":{"category":"(noun)","synonyms":"harmony|concord|concordance"}},
+<br>{"list":{"category":"(noun)","synonyms":"public security|security"}},
+<br>{"list":{"category":"(noun)","synonyms":"peace treaty|pacification|treaty|pact|accord"}}]}</blockquote>
+<br><br><div class="blu">Error codes</div>
+<br>The following error codes may be returned by the thesaurus Web service:<br><br>
+<table class="def"><tbody><tr><th>error code</th><th>description</th></tr>
+<tr><td>400 Bad Request</td><td>Wrong/Missing parameter</td></tr>
+<tr><td>403 Forbidden</td><td>You do not have permission to access this resource, or are over your rate limit</td></tr>
+<tr><td>404 Not Found</td><td>No match found for given word</td></tr>
+<tr><td>405 Method Not Allowed</td><td>Methods PUT, DELETE, POST... are rejected. Only GET is allowed</td></tr>
+</tbody></table>
+<!-- end content -->
+</td></tr>
+</tbody></table>
+
+</div>
+<a href="http://thesaurus.altervista.org/dictionary" title="Dictionary overview">Dictionary</a> | <a href="http://thesaurus.altervista.org/index.php?page=terms-en" title="Thesaurus terms and conditions">Terms and conditions</a> | <a href="http://thesaurus.altervista.org/index.php?page=policy-en" title="Thesaurus privacy policy">Privacy policy</a> <br><script type="text/javascript">
+/* <![CDATA[ */
+document.write('<s'+'cript type="text/javascript" src="http://ad.altervista.org/js.ad/size=728X90/r='+new Date().getTime()+'"><\/s'+'cript>');
+/* ]]> */
+</script><script type="text/javascript" src="./altervista json_files/"></script> <script type="text/javascript" src="./altervista json_files/cookiesc.js" defer=""></script>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function(event) {
+    window.cookieChoices && cookieChoices.showCookieConsentBar && cookieChoices.showCookieConsentBar('This web site uses cookies only for session management and does not collect personal information. The pages rendered by this web site contains elements generated by Facebook and Google. By using this site, you agree to accept cookies.', 'X');
+  });
+</script>
+
+</body></html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0040)http://thesaurus.altervista.org/testjava -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Java example</title>
+<meta name="description" content="This page describe how to use Java to access thesaurus">
+<link rel="stylesheet" type="text/css" href="./altervista java_files/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css"></style></head>
+
+<body>
+<div class="backgrnd">
+<table border="0" cellspacing="0" cellpadding="0" class="backgrnd">
+<tbody><tr>
+<td><ul class="menu"><li><a title="Main page" href="http://thesaurus.altervista.org/">Thesaurus</a></li><li><a title="XML/JSON interface" href="http://thesaurus.altervista.org/service">XML and JSON</a></li><li><a title="Example with PHP" href="http://thesaurus.altervista.org/testphp">PHP</a></li><li id="active"><a title="Example with Java" href="http://thesaurus.altervista.org/testjava">Java</a></li><li><a title="Example with Javascript" href="http://thesaurus.altervista.org/testjs">Javascript</a></li><li><a title="Example using Yahoo Query Language" href="http://thesaurus.altervista.org/testyql">YQL</a></li><li><a title="Forum" href="http://thesaurus.altervista.org/forum">Forum</a></li><li><a title="Dashboard" href="http://thesaurus.altervista.org/mykey">My key</a></li><li id="active"><iframe src="./altervista java_files/like.html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowtransparency="true"></iframe></li></ul></td>
+</tr>
+<tr><td class="body"><br>
+<!-- begin content -->
+<div class="blu">Java</div>
+<br>This Java example requires a json package to get support for <a href="http://www.json.org/" target="_blank">JSON</a>, e.g. you can download a proper json package from <a href="http://code.google.com/p/json-simple/">JSON.simple - A simple Java toolkit for JSON</a>
+<br><br>The thesaurus web service can accessed in Java using the HttpURLConnection class. You can start using the following code, make sure to use your own application <a href="http://thesaurus.altervista.org/mykey">key</a>!
+<br><br><div class="box">
+<code>
+import java.io.BufferedReader;
+<br>import java.net.HttpURLConnection;
+<br>import java.net.URL;
+<br>import java.net.URLEncoder;
+<br>import org.json.simple.*; // json package, download at http://code.google.com/p/json-simple/
+<br>
+<br>public class Thesaurus {
+<br>&nbsp;&nbsp;public static void main(String[] args) {
+<br>// NOTE: replace test_only with your own <a href="http://thesaurus.altervista.org/mykey">key</a>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;new SendRequest("peace", "en_US", "test_only", "json"); 
+<br>&nbsp;&nbsp;}
+<br>} // end of Thesaurus
+<br>
+<br>class SendRequest {
+<br>&nbsp;&nbsp;final String endpoint = "http://thesaurus.altervista.org/thesaurus/v1";
+<br>
+<br>&nbsp;&nbsp;public SendRequest(String word, String language, String key, String output) {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;try {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL serverAddress = new URL(endpoint + "?word="+URLEncoder.encode(word, "UTF-8")+"&amp;language="+language+"&amp;key="+key+"&amp;output="+output);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HttpURLConnection connection = (HttpURLConnection)serverAddress.openConnection();
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.connect();
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int rc = connection.getResponseCode();
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (rc == 200) {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String line = null;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BufferedReader br  = new BufferedReader(new java.io.InputStreamReader(connection.getInputStream()));
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;StringBuilder sb = new StringBuilder();
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while ((line = br.readLine()) != null)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.append(line + '\n');
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSONObject obj = (JSONObject) JSONValue.parse(sb.toString());
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSONArray array = (JSONArray)obj.get("response");
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (int i=0; i &lt; array.size(); i++) {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSONObject list = (JSONObject) ((JSONObject)array.get(i)).get("list");
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(list.get("category")+":"+list.get("synonyms"));
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else System.out.println("HTTP error:"+rc);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.disconnect();
+<br>&nbsp;&nbsp;&nbsp;&nbsp;} catch (java.net.MalformedURLException e) {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();
+<br>&nbsp;&nbsp;&nbsp;&nbsp;} catch (java.net.ProtocolException e) {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();
+<br>&nbsp;&nbsp;&nbsp;&nbsp;} catch (java.io.IOException e) {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();
+<br>&nbsp;&nbsp;&nbsp;&nbsp;}
+<br>&nbsp;&nbsp;}
+<br>} // end of SendRequest
+</code>
+</div>
+<br><br>Put the java code above in a file named Thesaurus.java and compile it:
+<br><br><div class="box">
+<code>
+javac -cp json_simple-1.1.jar Thesaurus.java
+</code>
+</div>
+<br><br>Now you are ready to run your compiled code:
+<br><br><div class="box">
+<code>
+java -cp .;json_simple-1.1.jar Thesaurus
+</code>
+</div>
+<br><br>Make sure to run the Java example with JDK 1.5 or later.
+<!-- end content -->
+</td></tr>
+</tbody></table>
+
+</div>
+<a href="http://thesaurus.altervista.org/dictionary" title="Dictionary overview">Dictionary</a> | <a href="http://thesaurus.altervista.org/index.php?page=terms-en" title="Thesaurus terms and conditions">Terms and conditions</a> | <a href="http://thesaurus.altervista.org/index.php?page=policy-en" title="Thesaurus privacy policy">Privacy policy</a> <br><script type="text/javascript">
+/* <![CDATA[ */
+document.write('<s'+'cript type="text/javascript" src="http://ad.altervista.org/js.ad/size=728X90/r='+new Date().getTime()+'"><\/s'+'cript>');
+/* ]]> */
+</script><script type="text/javascript" src="./altervista java_files/"></script> <script type="text/javascript" src="./altervista java_files/cookiesc.js" defer=""></script>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function(event) {
+    window.cookieChoices && cookieChoices.showCookieConsentBar && cookieChoices.showCookieConsentBar('This web site uses cookies only for session management and does not collect personal information. The pages rendered by this web site contains elements generated by Facebook and Google. By using this site, you agree to accept cookies.', 'X');
+  });
+</script>
+
+</body></html>
